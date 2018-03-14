@@ -243,7 +243,7 @@ echo "Are any files showed there? If so you have systemd."
 read
 
 echo "The systemctl command is one of the most essential commands that obtains unit information. The list-units option lists active units in your filesystem." 
-sudo systemctl list-units
+sudo systemctl list-units | head
 read
 
 echo "The UnitPath suffix  will show the path of the systemd files."
@@ -267,8 +267,8 @@ echo "Description=derp 1" >> derp1.target
 echo "[Unit]" > derp2.target
 echo "Description=derp 2" >> derp2.target
 echo "Wants=derp1.target" >> derp2.target
-cp derp1.target /etc/systemd/system
-cp derp2.target /etc/systemd/system
+sudo cp derp1.target /etc/systemd/system
+sudo cp derp2.target /etc/systemd/system
 sudo systemctl start derp2.target
 systemctl status derp1.target derp2.target
 echo "There it is folks, a thing of beauty. Let's turn this thing off and clean it up."
