@@ -261,11 +261,14 @@ read
 echo "Let's create our own fs that is dependant upon another and make sure it runs!"
 
 cd /etc/systemd/system
-sudo echo "[Unit]" > derp1.target
-sudo echo "Description=derp 1" >> derp1.target
-sudo echo "[Unit]" > derp2.target
-sudo echo "Description=derp 2" >> derp2.target
-sudo echo "Wants=derp1.target" >> derp2.target
+cd
+echo "[Unit]" > derp1.target
+echo "Description=derp 1" >> derp1.target
+echo "[Unit]" > derp2.target
+echo "Description=derp 2" >> derp2.target
+echo "Wants=derp1.target" >> derp2.target
+cp derp1.target /etc/systemd/system
+cp derp2.target /etc/systemd/system
 sudo systemctl start derp2.target
 systemctl status derp1.target derp2.target
 echo "There it is folks, a thing of beauty. Let's turn this thing off and clean it up."
@@ -273,7 +276,9 @@ read
 
 systemctl stop derp1.target 
 systemctl stop derp2.target
-sudo rm derp1.target derp2.target
+systemctl disable derp1.target
+systemctl disable derp2.target
+rm derp1.target derp2.target
 press_enter
 ;;
 	0 ) exit;;
